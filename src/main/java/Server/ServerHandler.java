@@ -7,10 +7,8 @@ import Model.IO.ViewModel.ServerMessage;
 import Model.Message;
 import Model.User;
 
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -216,8 +214,8 @@ public class ServerHandler {
                 System.out.println(respond);
                 break;
             case OpenFile:
-                server3.sendFile(serverMessage.getMessage());
-                System.out.println(serverMessage.getSender() + "Read file \n");
+                DBThread2.sendFile(serverMessage.getMessage());
+                System.out.println(serverMessage.getSender().getUsername() + " Read file \n");
                 break;
             case Error:
                 Message message = new Message();
