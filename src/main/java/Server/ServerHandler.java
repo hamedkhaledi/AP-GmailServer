@@ -146,7 +146,10 @@ public class ServerHandler {
             case Star:
                 semaphore.acquire();
                 Message Temp = ALL_MESSAGES.getAllMessages().get(ALL_MESSAGES.getAllMessages().indexOf(serverMessage.getMessage()));
-                Temp.setImportant(!Temp.isImportant());
+                if (serverMessage.getSender().equals(serverMessage.getMessage().getSender()))
+                    Temp.setImportantForMe(!Temp.isImportantForMe());
+                else
+                    Temp.setImportant(!Temp.isImportant());
                 semaphore.release();
                 respond = serverMessage.getSender().getUsername() + " ChangeImportant " + '\n'
                         + serverMessage.getMessage().getSubject() + '\n'
@@ -156,7 +159,10 @@ public class ServerHandler {
             case Delete:
                 semaphore.acquire();
                 Message Temp2 = ALL_MESSAGES.getAllMessages().get(ALL_MESSAGES.getAllMessages().indexOf(serverMessage.getMessage()));
-                Temp2.setRemoved(true);
+                if (serverMessage.getSender().equals(serverMessage.getMessage().getSender()))
+                    Temp2.setRemovedForMe(true);
+                else
+                    Temp2.setRemoved(true);
                 semaphore.release();
                 respond = serverMessage.getSender().getUsername() + " Delete " + '\n'
                         + serverMessage.getMessage().getSubject() + '\n'
